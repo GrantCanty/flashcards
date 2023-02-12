@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func (ac *AppContext) GetDeckNames() http.HandlerFunc {
+func (ac AppContext) GetDeckNames() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-type", "application/json")
 

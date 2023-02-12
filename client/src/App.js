@@ -4,10 +4,12 @@ import './App.css';
 import Sidebar from './routes/sidebar';
 import Home from './routes/home.jsx'
 import ErrorPage from './routes/error-page';
-import Review from './routes/review';
+import Decks from './routes/decks';
+import useModal from './useModal'
 
 function App() {
-    const homeRoute ='/'
+    const [showModal, toggleShowModal] = useModal()
+	const homeRoute ='/'
 	const deckRoute = '/decks'
 	
 	const router = createBrowserRouter([
@@ -22,20 +24,12 @@ function App() {
 				},
 				{
 					path: "decks",
-					element: <Review />,
-				},
-				{
-					path: "deck",
-					element: null,
+					element: <Decks show={showModal} toggleShow={toggleShowModal} />
 				},
 			],
 		},
 	],
 	)
-	//const navigate = useNavigate()
-	/*const homeRoute ='/'
-    const deckRoute = '/decks'*/
-
 
 	return (
 		<React.StrictMode>

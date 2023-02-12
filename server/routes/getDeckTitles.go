@@ -5,13 +5,13 @@ import (
 	"net/http"
 )
 
-func (ac AppContext) GetDeckNames() http.HandlerFunc {
+func (ac AppContext) GetDeckTitles() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-type", "application/json")
 
 		deckNames := []string{}
 		for name := range ac.Decks {
-			deckNames = append(deckNames, name)
+			deckNames = append(deckNames, name.Title)
 		}
 
 		json.NewEncoder(w).Encode(deckNames)

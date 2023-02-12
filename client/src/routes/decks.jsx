@@ -1,10 +1,12 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 import axios from 'axios'
-import './review.css'
+import Modal from '../modal'
+import './deck.css'
 import './main.css'
+import FlashcardList from '../flashcard-list'
 
-function Review() {
+const Decks = ({show, toggleShow}) => {
     const apiUrl = 'http://localhost:8080/api/decks'
     
     const [deckNameResponse, setDeckNameResponse] = React.useState([])
@@ -18,11 +20,12 @@ function Review() {
     return (
         <>
             <div className='wrapper'>
-                <div className='items'>
-                    {deckNameResponse.map((item) => {
-                        return <h2 key={item} >{item}</h2>
-                })}
+                <div className='header'>
+                    <h1>Your Flashcard Decks</h1>
+                    <button>Add Deck</button>
                 </div>
+                <FlashcardList deckNameResponse={deckNameResponse} toggleShow={toggleShow} />
+                <Modal show={show} close={toggleShow} />
             </div>
             <div id="detail">
                 <Outlet />
@@ -32,4 +35,4 @@ function Review() {
 
 }
 
-export default Review;
+export default Decks;

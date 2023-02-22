@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/GrantCanty/flashcards/types.go"
 	"github.com/gorilla/mux"
 )
 
@@ -20,12 +19,12 @@ func (ac AppContext) GetCards() http.HandlerFunc {
 			return
 		}
 
-		cards, found := ac.Decks[types.DeckMetaData{ID: id, Title: params["title"]}]
-		if found {
-			json.NewEncoder(w).Encode(cards)
-		} else {
-			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		for i := range ac.Decks {
+			if i.ID == id {
+				json.NewEncoder(w).Encode(ac.Decks[i])
+				return
+			}
 		}
-
+		http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
 	}
 }

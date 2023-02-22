@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import axios from 'axios'
 import './main.css'
 
-function Home() {
+function HomeRoute() {
   const userDataUrl = 'http://localhost:8080/api/user'
   const [userData, setUserData] = React.useState(new Map())
 
@@ -35,6 +35,4 @@ function Home() {
       </>
     );
 }
-export default Home;
-
-//{ deckData ? <h4>You have {deckData} flashcard decks</h4> : null }
+export default HomeRoute;

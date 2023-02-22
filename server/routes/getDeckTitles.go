@@ -9,9 +9,9 @@ func (ac AppContext) GetDeckTitles() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-type", "application/json")
 
-		deckNames := []string{}
+		deckNames := make(map[int]string)
 		for name := range ac.Decks {
-			deckNames = append(deckNames, name.Title)
+			deckNames[name.ID] = name.Title
 		}
 
 		json.NewEncoder(w).Encode(deckNames)

@@ -1,7 +1,9 @@
 import ReactDOM from 'react-dom'
+import { useNavigate } from 'react-router-dom'
 import './modal.css'
 
-const Modal = ({show, close, onEditClick, onReviewClick}) => {
+const Modal = ({show, close, onEditClick, onReviewClick, setID}) => {
+    const navigate = useNavigate()
 
     if (!show) {
         return null
@@ -11,10 +13,16 @@ const Modal = ({show, close, onEditClick, onReviewClick}) => {
         <div className="modal-bg">
             <div className="modal">
                 <div className='options-list'>
-                    <div className='options-item edit'>
+                    <div className='options-item edit' onClick={() => {
+                                                                        navigate(onEditClick + '/' + setID)
+                                                                        close()
+                                                                        }} >
                         <h3>Edit Deck</h3>
                     </div>
-                    <div className='options-item review'>
+                    <div className='options-item review' onClick={() => {
+                                                                        navigate(onReviewClick + '/' + setID)
+                                                                        close()
+                                                                        }} >
                         <h3>Review Deck</h3>
                     </div>
                 </div>

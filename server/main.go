@@ -49,13 +49,13 @@ func main() {
 	//main.HandleFunc("/decks", getDeckNames).Methods("GET")
 
 	r.HandleFunc("/api/decks", ctx.GetDeckTitles()).Methods("GET")
-	r.HandleFunc("/api/deck/{title}", ctx.GetCards()).Methods("GET")
+	r.HandleFunc("/api/deck/{id}", ctx.GetCards()).Methods("GET")
 	r.HandleFunc("/api/decks", ctx.AddDeck()).Methods("POST")
 	r.HandleFunc("/api/deckcount", ctx.GetDeckLength()).Methods("GET")
 	r.HandleFunc("/api/user", ctx.GetProfileData()).Methods("GET")
 
 	apiRoute.HandleFunc("/decks", ctx.GetDeckTitles()).Methods("GET")
-	apiRoute.HandleFunc("/deck/{title}", ctx.GetCards()).Methods("GET")
+	apiRoute.HandleFunc("/deck/{id}", ctx.GetCards()).Methods("GET")
 	apiRoute.HandleFunc("/deck", ctx.AddDeck()).Methods("POST")
 	apiRoute.HandleFunc("/deckcount", ctx.GetDeckLength()).Methods("GET")
 	apiRoute.HandleFunc("/user", ctx.GetProfileData()).Methods("GET")

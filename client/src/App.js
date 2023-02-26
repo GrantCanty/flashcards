@@ -5,6 +5,7 @@ import Sidebar from './sidebar/sidebar';
 import HomeRoute from './routes/homeRoute.jsx'
 import ErrorPage from './routes/error-page';
 import DeckRoute from './routes/deckRoute';
+import EditDeckRoute from './routes/editDeckRoute';
 import ReviewDeckRoute from './routes/reviewDeckRoute';
 import useModal from './useModal'
 
@@ -34,12 +35,11 @@ function App() {
 				{
 					path: editDeckRoute + "/:id",
 					//element: <Decks show={showModal} toggleShow={toggleShowModal} editDeckRoute={editDeckRoute} reviewDeckRoute={reviewDeckRoute} />
-					element: null,
+					//element: null,
+					element: <EditDeckRoute deckID={deckID} />
 				},
 				{
 					path: reviewDeckRoute + "/:id",
-					//element: <Decks show={showModal} toggleShow={toggleShowModal} editDeckRoute={editDeckRoute} reviewDeckRoute={reviewDeckRoute} />
-					//element: null,
 					element: <ReviewDeckRoute deckID={deckID} />
 				},
 			],

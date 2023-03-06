@@ -1,6 +1,6 @@
 import React from "react"
 import axios from "axios"
-import ReviewFlashcard from "../reviewFlashcard/reviewFlashcard"
+import EditFlashcard from "../editFlashcard/editFlashcard"
 
 const EditDeckRoute = ({deckID}) => {
     const url = "http://localhost:8080/api/deck/" + deckID
@@ -12,18 +12,29 @@ const EditDeckRoute = ({deckID}) => {
             setDeckInfo(new Map(Object.entries(response.data)))
         })
     }, [])
+
+    function newCard() {
+        setDeckInfo(new Map(deckInfo.set("", "")))
+    }
+
+    const handleDeckInfoChange = e => {
+        setDeckInfo(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+
+        }))
+    }
     
     return (
         <>
             <div className="wrapper">
                 <div className="header">
                 <h1>Your Flashcards</h1>
-                    <button>Add Card</button>
+                    <button onClick={newCard} >Add Card</button>
                 </div>
                 {
-                    [...deckInfo.keys()].map((card, num) => {
-                        //console.log(deckInfo.get(card), num)
-                        return <ReviewFlashcard num={num} topic={card} description={deckInfo.get(card)} />
+                    [...deckInfo.keys()].map((topic, num) => {
+                        return <EditFlashcard key={num} topic={topic} description={deckInfo.get(topic)} change={handleDeckInfoChange} />
                     })
                 }
             </div>

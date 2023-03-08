@@ -51,32 +51,34 @@ const EditDeckRoute = ({deckID}) => {
 
         let tmpList = [tmp, tmp2, tmp3]
         setDeckInfo(tmpList)
+        console.log(deckInfo)
     }, [])
 
     function newCard() {
         const tmpDeck = new Map()
         tmpDeck.set("topic", "")
         tmpDeck.set("description", "")
-        tmpDeck.set("id", 4)
-        //let tmpDeckInfo = []
-        //tmpDeckInfo = deckInfo
-        //tmpDeckInfo.push(tmpDeck)
-        //console.log(tmpDeckInfo)
-        setDeckInfo(deckInfo.push(tmpDeck))
+        tmpDeck.set("id", deckInfo.length++)
 
-        console.log("deckInfo: ", deckInfo)
+        let tmpArr = []
+        deckInfo.map((card) => {
+            tmpArr.push(card)
+        })
+        tmpArr.push(tmpDeck)
+
+        setDeckInfo(tmpArr)
     }
 
     function handleDeckInfoChange(index, e) {
         console.log(`${[e.target.name]}: ${e.target.value} ${index} `)
-        /*setDeckInfo(prevState => ({
+        setDeckInfo(prevState => ({
             ...prevState.map(card => ({
                 ...card.get("id") === index
-                ? new Map([e.target.name], e.target.value)
+                ? card.set([e.target.name], e.target.value)
                 : card
             }))
-        }))*/
-        let tmpDeckInfo = []
+        }))
+        /*let tmpDeckInfo = []
         tmpDeckInfo = deckInfo
         for(let i = 0; i < tmpDeckInfo.length; i++) {
             //console.log(tmpDeckInfo[i].get("id") === index)
@@ -86,7 +88,7 @@ const EditDeckRoute = ({deckID}) => {
         }
         console.log("tmpDeckInfo: ", tmpDeckInfo)
 
-        setDeckInfo(tmpDeckInfo)
+        setDeckInfo(tmpDeckInfo)*/
     }
 
     
@@ -98,12 +100,21 @@ const EditDeckRoute = ({deckID}) => {
                     <button onClick={newCard} >Add Card</button>
                 </div>
                 {deckInfo.map((flaschard, num) => {
-                        return <EditFlashcard key={num} index={num} flaschard={flaschard} />
-                    })
-                }
+                        return <EditFlashcard key={num} index={num} flaschard={flaschard} change={handleDeckInfoChange} />
+                    }
+                )}
+
             </div>
         </>
     )
 }
 
 export default EditDeckRoute;
+
+/*
+{deckInfo.map((flaschard, num) => {
+                        return <EditFlashcard key={num} index={num} flaschard={flaschard} change={handleDeckInfoChange} />
+                    }
+                )}
+*/
+//{console.log("is deckInfo an array: ", Array.isArray(deckInfo))}

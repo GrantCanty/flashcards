@@ -1,6 +1,7 @@
 import "./card.css"
 
 const EditFlashcard = ({index, flaschard, change}) => {
+    console.log(flaschard)
     return (
         <>
             <div className="review-flashcard-wrapper">

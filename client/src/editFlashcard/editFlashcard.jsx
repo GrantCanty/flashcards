@@ -1,7 +1,7 @@
 import "./card.css"
 
 const EditFlashcard = ({index, flaschard, change}) => {
-    console.log(flaschard)
+    flaschard = new Map(Object.entries(flaschard))
     return (
         <>
             <div className="review-flashcard-wrapper">

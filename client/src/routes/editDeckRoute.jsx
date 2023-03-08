@@ -1,57 +1,16 @@
 import React from "react"
-//import axios from "axios"
+import axios from "axios"
 import EditFlashcard from "../editFlashcard/editFlashcard"
 
 const EditDeckRoute = ({deckID}) => {
-    //const url = "http://localhost:8080/api/deck/" + deckID
-
-    /*let tmpList = []
-    const tmp = new Map()
-    const tmp2 = new Map()
-    const tmp3 = new Map()
-    
-    tmp.set("topic", "avoir")
-    tmp.set("description", "to have")
-    tmp.set("id", 0)
-
-    tmp2.set("topic", "dire")
-    tmp2.set("description", "to say")
-    tmp2.set("id", 1)
-
-    tmp3.set("topic", "lire")
-    tmp3.set("description", "to read")
-    tmp3.set("id", 2)
-
-    tmpList = [tmp, tmp2, tmp3]*/
+    const url = "http://localhost:8080/api/deck/" + deckID
     
     const [deckInfo, setDeckInfo] = React.useState([])
 
-    /*React.useEffect(() => {
-        axios.get(url).then((response) => {
-            setDeckInfo(new Map(Object.entries(response.data)))
-        })
-    }, [])*/
-
     React.useEffect(() => {
-        const tmp = new Map()
-        const tmp2 = new Map()
-        const tmp3 = new Map()
-
-        tmp.set("topic", "avoir")
-        tmp.set("description", "to have")
-        tmp.set("id", 0)
-
-        tmp2.set("topic", "dire")
-        tmp2.set("description", "to say")
-        tmp2.set("id", 1)
-
-        tmp3.set("topic", "lire")
-        tmp3.set("description", "to read")
-        tmp3.set("id", 2)
-
-        let tmpList = [tmp, tmp2, tmp3]
-        setDeckInfo(tmpList)
-        console.log(deckInfo)
+        axios.get(url).then((response) => {
+            setDeckInfo(response.data)
+        })
     }, [])
 
     function newCard() {
@@ -60,6 +19,7 @@ const EditDeckRoute = ({deckID}) => {
         tmpDeck.set("description", "")
         tmpDeck.set("id", deckInfo.length++)
 
+        // create brand new array. loop through deckInfo and add elements to new array
         let tmpArr = []
         deckInfo.map((card) => {
             tmpArr.push(card)
@@ -73,6 +33,7 @@ const EditDeckRoute = ({deckID}) => {
         console.log(`${[e.target.name]}: ${e.target.value} ${index} `)
         setDeckInfo(prevState => ({
             ...prevState.map(card => ({
+                ...card = new Map(Object.entries(card)),
                 ...card.get("id") === index
                 ? card.set([e.target.name], e.target.value)
                 : card
@@ -99,6 +60,7 @@ const EditDeckRoute = ({deckID}) => {
                     <h1>Your Flashcards</h1>
                     <button onClick={newCard} >Add Card</button>
                 </div>
+                {console.log("is array: ", Array.isArray(deckInfo))}
                 {deckInfo.map((flaschard, num) => {
                         return <EditFlashcard key={num} index={num} flaschard={flaschard} change={handleDeckInfoChange} />
                     }
@@ -110,11 +72,3 @@ const EditDeckRoute = ({deckID}) => {
 }
 
 export default EditDeckRoute;
-
-/*
-{deckInfo.map((flaschard, num) => {
-                        return <EditFlashcard key={num} index={num} flaschard={flaschard} change={handleDeckInfoChange} />
-                    }
-                )}
-*/
-//{console.log("is deckInfo an array: ", Array.isArray(deckInfo))}

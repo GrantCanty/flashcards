@@ -1,15 +1,15 @@
 import "./card.css"
 
-const EditFlashcard = ({topic, description, change}) => {
+const EditFlashcard = ({index, flaschard, change}) => {
     return (
         <>
             <div className="review-flashcard-wrapper">
                 <div className="review-flashcard" >
                     <div className="review-flashcard-topic">
-                        <input type="text" name={topic} value={topic} onChange={change} ></input>
+                        <input type="text" name="topic" value={flaschard.get("topic")} onChange={ (event) => { change(index, event) } } ></input>
                     </div>
                     <div className="review-flashcard-desc">
-                        <input type="text" name={description} value={description} onChange={change} ></input>
+                        <input type="text" name="description" value={flaschard.get("description")} onChange={ (event) => { change(index, event) } } ></input>
                     </div>
                 </div>
             </div>

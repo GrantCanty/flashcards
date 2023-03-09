@@ -7,8 +7,6 @@ const EditDeckRoute = ({deckID}) => {
     
     const [deckInfo, setDeckInfo] = React.useState([])
 
-    console.log(deckID, deckID)
-
     React.useEffect(() => {
         axios.get(url).then((response) => {
             setDeckInfo(response.data)

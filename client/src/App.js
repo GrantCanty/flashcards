@@ -34,8 +34,6 @@ function App() {
 				},
 				{
 					path: editDeckRoute + "/:id",
-					//element: <Decks show={showModal} toggleShow={toggleShowModal} editDeckRoute={editDeckRoute} reviewDeckRoute={reviewDeckRoute} />
-					//element: null,
 					element: <EditDeckRoute deckID={deckID} />
 				},
 				{

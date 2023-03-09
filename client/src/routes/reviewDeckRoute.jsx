@@ -8,11 +8,10 @@ const ReviewDeckRoute = ({deckID}) => {
     const [deckInfo, setDeckInfo] = React.useState([])
 
     React.useEffect(() => {
-        console.log("CALLED API")
         axios.get(url).then((response) => {
             setDeckInfo(response.data)
         })
-    }, [])
+    }, [deckID])
     
     return (
         <div className="wrapper">

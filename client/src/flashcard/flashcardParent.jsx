@@ -25,13 +25,10 @@ const FlashcardParent =({deckInfo}) => {
         }
     }
 
-    
-
     return (
-        <div >
-
+        <>
             <Flashcard deckInfo={deckInfo} cardPos={cardPos} setCardPos={newCardPos} showTitle={showTitle} toggleShowTitle={toggleShowTitle} />
-        </div>
+        </>
     )
 
 }

@@ -2,7 +2,7 @@ import React from "react";
 import Flashcard from "./flashcard";
 
 
-function FlashcardParent(props) {
+const FlashcardParent =({deckInfo}) => {
     const [showTitle, setShowTitle] = React.useState(true)
 
     function toggleShowTitle() {
@@ -10,9 +10,7 @@ function FlashcardParent(props) {
 
     }
     
-
-    const keys = [...props.deckInfo.keys()]
-    const deckLength = keys.length
+    const deckLength = deckInfo.length
 
     const [cardPos, setCardPos] = React.useState(Number)
 
@@ -32,7 +30,7 @@ function FlashcardParent(props) {
     return (
         <div >
 
-            <Flashcard deckInfo={props.deckInfo} cardPos={cardPos} setCardPos={newCardPos} showTitle={showTitle} toggleShowTitle={toggleShowTitle} />
+            <Flashcard deckInfo={deckInfo} cardPos={cardPos} setCardPos={newCardPos} showTitle={showTitle} toggleShowTitle={toggleShowTitle} />
         </div>
     )
 

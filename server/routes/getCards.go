@@ -2,6 +2,7 @@ package routes
 
 import (
 	"encoding/json"
+	"log"
 	"net/http"
 	"strconv"
 
@@ -22,6 +23,7 @@ func (ac AppContext) GetCards() http.HandlerFunc {
 		for i := range ac.Decks {
 			if i.ID == id {
 				json.NewEncoder(w).Encode(ac.Decks[i])
+				log.Println(ac.Decks[i])
 				return
 			}
 		}

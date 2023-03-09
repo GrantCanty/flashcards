@@ -7,6 +7,8 @@ const EditDeckRoute = ({deckID}) => {
     
     const [deckInfo, setDeckInfo] = React.useState([])
 
+    console.log(deckID, deckID)
+
     React.useEffect(() => {
         axios.get(url).then((response) => {
             setDeckInfo(response.data)
@@ -57,7 +59,7 @@ const EditDeckRoute = ({deckID}) => {
         <>
             <div className="wrapper">
                 <div className="header">
-                    <h1>Your Flashcards</h1>
+                    <h1>Edit Flashcards</h1>
                     <button onClick={newCard} >Add Card</button>
                 </div>
                 {console.log("is array: ", Array.isArray(deckInfo))}

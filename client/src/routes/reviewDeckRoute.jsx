@@ -5,11 +5,12 @@ import FlashcardParent from '../flashcard/flashcardParent'
 const ReviewDeckRoute = ({deckID}) => {
     const url = 'http://localhost:8080/api/deck/' + deckID
 
-    const [deckInfo, setDeckInfo] = React.useState(new Map())
+    const [deckInfo, setDeckInfo] = React.useState([])
 
     React.useEffect(() => {
+        console.log("CALLED API")
         axios.get(url).then((response) => {
-            setDeckInfo(new Map(Object.entries(response.data)))
+            setDeckInfo(response.data)
         })
     }, [])
     
@@ -22,9 +23,3 @@ const ReviewDeckRoute = ({deckID}) => {
 }
 
 export default ReviewDeckRoute;
-
-/*
-{[...deckInfo.keys()].map((item) => {
-    return <div key={item} > {item}: {deckInfo.get(item)} </div>
-})}
-*/

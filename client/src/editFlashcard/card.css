@@ -5,10 +5,14 @@
 
 .review-flashcard {
     padding: 5px;
-    border-bottom: 1px solid rgb(225,225,225);
     display: flex;
     flex-direction: row;
     align-content: stretch;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
 }
 
 .review-flashcard-topic {

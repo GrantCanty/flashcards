@@ -1,4 +1,5 @@
 import React from 'react'
+import { Outlet } from 'react-router-dom'
 import axios from 'axios'
 import FlashcardParent from '../flashcard/flashcardParent'
 
@@ -11,12 +12,15 @@ const ReviewDeckRoute = ({deckID}) => {
         axios.get(url).then((response) => {
             setDeckInfo(response.data)
         })
-    }, [deckID])
+    }, [url])
     
     return (
         <div className="wrapper">
             <h1>Review Flashcards</h1>
             <FlashcardParent deckInfo={deckInfo} />
+            <div id="detail">
+                <Outlet />
+            </div>
         </div>
     )
 }

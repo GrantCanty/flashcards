@@ -1,6 +1,9 @@
 import React from "react"
+import { Outlet } from 'react-router-dom'
 import axios from "axios"
 import EditFlashcard from "../editFlashcard/editFlashcard"
+
+import './editDeckRoute.css'
 
 const EditDeckRoute = ({deckID}) => {
     const url = "http://localhost:8080/api/deck/" + deckID
@@ -11,7 +14,7 @@ const EditDeckRoute = ({deckID}) => {
         axios.get(url).then((response) => {
             setDeckInfo(response.data)
         })
-    }, [])
+    }, [url])
 
     function newCard() {
         const tmpDeck = new Map()
@@ -30,26 +33,14 @@ const EditDeckRoute = ({deckID}) => {
     }
 
     function handleDeckInfoChange(index, e) {
-        console.log(`${[e.target.name]}: ${e.target.value} ${index} `)
-        setDeckInfo(prevState => ({
+        setDeckInfo(prevState => ([
             ...prevState.map(card => ({
                 ...card = new Map(Object.entries(card)),
-                ...card.get("id") === index
+                return :card.get("id") === index
                 ? card.set([e.target.name], e.target.value)
                 : card
             }))
-        }))
-        /*let tmpDeckInfo = []
-        tmpDeckInfo = deckInfo
-        for(let i = 0; i < tmpDeckInfo.length; i++) {
-            //console.log(tmpDeckInfo[i].get("id") === index)
-            if(tmpDeckInfo[i].get("id") === index) {
-                tmpDeckInfo[i].set(e.target.name, e.target.value)
-            }
-        }
-        console.log("tmpDeckInfo: ", tmpDeckInfo)
-
-        setDeckInfo(tmpDeckInfo)*/
+        ]))
     }
 
     
@@ -60,12 +51,23 @@ const EditDeckRoute = ({deckID}) => {
                     <h1>Edit Flashcards</h1>
                     <button onClick={newCard} >Add Card</button>
                 </div>
-                {console.log("is array: ", Array.isArray(deckInfo))}
-                {deckInfo.map((flaschard, num) => {
-                        return <EditFlashcard key={num} index={num} flaschard={flaschard} change={handleDeckInfoChange} />
-                    }
-                )}
+                <ul className="decks">
+                    {/*<li className="review-flashcard-wrapper">
+                        <EditFlashcard key={0} index={0} flaschard={{topic:"Topic", description:"Description"}} />
+                    </li>*/}
+                    {deckInfo.map((flaschard, num) => {
+                            return (
+                                <li className="review-flashcard-wrapper"> 
+                                    <EditFlashcard key={num} index={num} flaschard={flaschard} change={handleDeckInfoChange} />
+                                </li>
+                            )
+                        }
+                    )}
+                </ul>
 
+            </div>
+            <div id="detail">
+                <Outlet />
             </div>
         </>
     )

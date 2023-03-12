@@ -5,7 +5,7 @@ import EditFlashcard from "../editFlashcard/editFlashcard"
 
 import './editDeckRoute.css'
 
-const EditDeckRoute = ({deckID}) => {
+const EditDeckRoute = ({deckNames, deckID}) => {
     const url = "http://localhost:8080/api/deck/" + deckID
     
     const [deckInfo, setDeckInfo] = React.useState([])
@@ -43,6 +43,14 @@ const EditDeckRoute = ({deckID}) => {
         ]))
     }
 
+    function saveCards() {
+        //console.log("saveCards: ", deckNames.get(String(deckID)), deckID)
+        axios.post(url, deckInfo, { headers:{"Access-Control-Allow-Origin": "*"}, params:{"deckName": deckNames.get(deckID)}})
+        /*axios.post(url, deckInfo).then((response) => {
+            console.log(response)
+        })*/
+    }
+
     
     return (
         <>
@@ -50,11 +58,9 @@ const EditDeckRoute = ({deckID}) => {
                 <div className="header">
                     <h1>Edit Flashcards</h1>
                     <button onClick={newCard} >Add Card</button>
+                    <button onClick={saveCards} >Save Cards</button>
                 </div>
                 <ul className="decks">
-                    {/*<li className="review-flashcard-wrapper">
-                        <EditFlashcard key={0} index={0} flaschard={{topic:"Topic", description:"Description"}} />
-                    </li>*/}
                     {deckInfo.map((flaschard, num) => {
                             return (
                                 <li className="review-flashcard-wrapper"> 

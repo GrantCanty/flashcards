@@ -12,6 +12,7 @@ import useModal from './useModal'
 function App() {
     const [showModal, toggleShowModal] = useModal()
 	const [deckID, setDeckID] = React.useState(Number)
+	const [deckNameResponse, setDeckNameResponse] = React.useState(new Map())
 
 	const homeRoute ='/'
 	const deckRoute = '/decks'
@@ -30,11 +31,11 @@ function App() {
 				},
 				{
 					path: deckRoute,
-					element: <DeckRoute show={showModal} toggleShow={toggleShowModal} deckID={deckID} setDeckID={setDeckID} editDeckRoute={editDeckRoute} reviewDeckRoute={reviewDeckRoute} />
+					element: <DeckRoute deckNames={deckNameResponse} setDeckNames={setDeckNameResponse} show={showModal} toggleShow={toggleShowModal} deckID={deckID} setDeckID={setDeckID} editDeckRoute={editDeckRoute} reviewDeckRoute={reviewDeckRoute} />
 				},
 				{
 					path: editDeckRoute + "/:id",
-					element: <EditDeckRoute deckID={deckID} />
+					element: <EditDeckRoute deckNames={deckNameResponse} deckID={deckID} />
 				},
 				{
 					path: reviewDeckRoute + "/:id",

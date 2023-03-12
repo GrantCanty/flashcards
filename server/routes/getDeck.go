@@ -8,7 +8,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func (ac AppContext) GetCards() http.HandlerFunc {
+func (ac AppContext) GetDeck() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-type", "application/json")
 

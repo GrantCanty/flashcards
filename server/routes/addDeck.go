@@ -1,23 +1,49 @@
 package routes
 
 import (
-	"net/http"
-	/*"encoding/json"
-	"errors"
+	"encoding/json"
 	"log"
-	"reflect"
+	"net/http"
+	"strconv"
 
-	"github.com/GrantCanty/flashcards/types.go"*/)
+	"github.com/GrantCanty/flashcards/types.go"
+	"github.com/gorilla/mux"
+)
 
 func (ac *AppContext) AddDeck() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Content-type", "application/json")
+		params := mux.Vars(r)
+		deckName := r.URL.Query().Get("deckName")
+		var deck []Card
 
-		//var deck map[string]interface{}
-		//deck = make(map[string]interface{})
+		_ = json.NewDecoder(r.Body).Decode(&deck)
 
-		/*_ = json.NewDecoder(r.Body).Decode(&deck)
-		if value, found := deck["title"]; found {
+		log.Println("params: ", params)
+		log.Println("urlVals: ", deckName)
+		id, err := strconv.Atoi(params["id"])
+		if err != nil {
+			log.Println(err)
+		}
+
+		//var deckID = types.DeckMetaData{}
+		//var flashCards []Card
+		/*for deckID, _ := range ac.Decks {
+			if deckID.ID == id {
+				ac.Decks. = deck
+
+			} else {
+				log.Println(flashCards)
+			}
+		}*/
+
+		if _, found := ac.Decks[types.DeckMetaData{ID: id, Title: deckName}]; found {
+			log.Println(ac.Decks[types.DeckMetaData{ID: id, Title: deckName}])
+			ac.Decks[types.DeckMetaData{ID: id}] = deck
+		}
+
+		log.Println("found Deck: ", ac.Decks[types.DeckMetaData{ID: id, Title: deckName}])
+
+		/*if value, found := deck["title"]; found {
 			switch key := value.(type) {
 			case string:
 				if _, found = ac.Decks == key; !found {

@@ -33,24 +33,21 @@ const EditDeckRoute = ({deckNames, deckID}) => {
     }
 
     function handleDeckInfoChange(index, e) {
-        setDeckInfo(prevState => ([
-            ...prevState.map(card => ({
-                ...card = new Map(Object.entries(card)),
-                return :card.get("id") === index
-                ? card.set([e.target.name], e.target.value)
-                : card
-            }))
-        ]))
+        setDeckInfo(prev => {
+            const newState = prev.map(card => {
+                if (card.id === index) return {
+                    ...card,
+                    [e.target.name]: e.target.value
+                }
+                return card
+            })
+            return newState
+        })
     }
 
     function saveCards() {
-        //console.log("saveCards: ", deckNames.get(String(deckID)), deckID)
-        axios.post(url, deckInfo, { headers:{"Access-Control-Allow-Origin": "*"}, params:{"deckName": deckNames.get(deckID)}})
-        /*axios.post(url, deckInfo).then((response) => {
-            console.log(response)
-        })*/
+        axios.post(url, deckInfo, { params:{"deckName": deckNames.get(deckID)}})
     }
-
     
     return (
         <>
@@ -63,8 +60,8 @@ const EditDeckRoute = ({deckNames, deckID}) => {
                 <ul className="decks">
                     {deckInfo.map((flaschard, num) => {
                             return (
-                                <li className="review-flashcard-wrapper"> 
-                                    <EditFlashcard key={num} index={num} flaschard={flaschard} change={handleDeckInfoChange} />
+                                <li key={num} className="review-flashcard-wrapper"> 
+                                    <EditFlashcard flaschard={flaschard} editState={handleDeckInfoChange} />
                                 </li>
                             )
                         }

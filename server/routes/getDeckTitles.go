@@ -3,9 +3,11 @@ package routes
 import (
 	"encoding/json"
 	"net/http"
+
+	app_context "github.com/GrantCanty/flashcards/appContext"
 )
 
-func (ac AppContext) GetDeckTitles() http.HandlerFunc {
+func GetDeckTitles(ac *app_context.AppContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-type", "application/json")
 

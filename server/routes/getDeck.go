@@ -5,10 +5,11 @@ import (
 	"net/http"
 	"strconv"
 
+	app_context "github.com/GrantCanty/flashcards/appContext"
 	"github.com/gorilla/mux"
 )
 
-func (ac AppContext) GetDeck() http.HandlerFunc {
+func GetDeck(ac *app_context.AppContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-type", "application/json")
 

@@ -4,7 +4,9 @@ import (
 	"log"
 	"net/http"
 
+	app_context "github.com/GrantCanty/flashcards/appContext"
 	"github.com/GrantCanty/flashcards/routes"
+
 	//"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
@@ -26,7 +28,7 @@ func corsMiddleware(next http.Handler) http.Handler {
 }
 
 func main() {
-	ctx := routes.NewAppContext()
+	ctx := app_context.NewAppContext()
 	r := mux.NewRouter()
 	r.Use(corsMiddleware)
 	apiRoute := r.Host("api.localhost").Subrouter()
@@ -37,17 +39,17 @@ func main() {
 	})
 	handler := c.Handler(r)
 
-	r.HandleFunc("/api/decks", ctx.GetDeckTitles()).Methods("GET")
-	r.HandleFunc("/api/deck/{id}", ctx.GetDeck()).Methods("GET")
-	r.HandleFunc("/api/deck/{id}", ctx.AddDeck()).Methods("POST")
-	r.HandleFunc("/api/deckcount", ctx.GetDeckLength()).Methods("GET")
-	r.HandleFunc("/api/user", ctx.GetProfileData()).Methods("GET")
+	r.HandleFunc("/api/decks", routes.GetDeckTitles(&ctx)).Methods("GET")
+	r.HandleFunc("/api/deck/{id}", routes.GetDeck(&ctx)).Methods("GET")
+	r.HandleFunc("/api/deck/{id}", routes.AddDeck(&ctx)).Methods("POST")
+	r.HandleFunc("/api/deckcount", routes.GetDeckLength(&ctx)).Methods("GET")
+	r.HandleFunc("/api/user", routes.GetProfileData(&ctx)).Methods("GET")
 
-	apiRoute.HandleFunc("/decks", ctx.GetDeckTitles()).Methods("GET")
-	apiRoute.HandleFunc("/deck/{id}", ctx.GetDeck()).Methods("GET")
-	apiRoute.HandleFunc("/deck/{id}", ctx.AddDeck()).Methods("POST")
-	apiRoute.HandleFunc("/deckcount", ctx.GetDeckLength()).Methods("GET")
-	apiRoute.HandleFunc("/user", ctx.GetProfileData()).Methods("GET")
+	apiRoute.HandleFunc("/decks", routes.GetDeckTitles(&ctx)).Methods("GET")
+	apiRoute.HandleFunc("/deck/{id}", routes.GetDeck(&ctx)).Methods("GET")
+	apiRoute.HandleFunc("/deck/{id}", routes.AddDeck(&ctx)).Methods("POST")
+	apiRoute.HandleFunc("/deckcount", routes.GetDeckLength(&ctx)).Methods("GET")
+	apiRoute.HandleFunc("/user", routes.GetProfileData(&ctx)).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8080", handler))
 }

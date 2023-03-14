@@ -11,7 +11,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func (ac *app_context.AppContext) AddDeck() http.HandlerFunc {
+func AddDeck(ac *app_context.AppContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		deckName := r.URL.Query().Get("deckName")
 		params := mux.Vars(r)

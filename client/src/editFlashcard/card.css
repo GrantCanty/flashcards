@@ -1,30 +1,30 @@
-.review-flashcard-wrapper {
+.edit-flashcard-wrapper {
     height: 100%;
     width: 100%;
 }
 
-.review-flashcard {
+.edit-flashcard {
     padding: 5px;
     display: flex;
     flex-direction: row;
     align-content: stretch;
 }
 
-ul {
-    padding: 0;
-    list-style-type: none;
-}
-
-.review-flashcard-topic {
+.edit-flashcard-topic {
     flex: 1;
     padding-left: 5px;
     padding-right: 5px;
 }
 
-.review-flashcard-desc {
+.edit-flashcard-desc {
     flex: 2;
     padding-left: 5px;
     padding-right: 5px;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
 }
 
 input {

@@ -6,11 +6,12 @@ import (
 	"net/http"
 	"strconv"
 
+	app_context "github.com/GrantCanty/flashcards/appContext"
 	"github.com/GrantCanty/flashcards/types.go"
 	"github.com/gorilla/mux"
 )
 
-func (ac *AppContext) AddDeck() http.HandlerFunc {
+func (ac *app_context.AppContext) AddDeck() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		deckName := r.URL.Query().Get("deckName")
 		params := mux.Vars(r)
@@ -19,11 +20,10 @@ func (ac *AppContext) AddDeck() http.HandlerFunc {
 			log.Println(err)
 		}
 
-		var deck []Card
+		var deck []types.Card
 		_ = json.NewDecoder(r.Body).Decode(&deck)
 
 		if _, found := ac.Decks[types.DeckMetaData{ID: id, Title: deckName}]; found {
-			log.Println(ac.Decks[types.DeckMetaData{ID: id, Title: deckName}])
 			ac.Decks[types.DeckMetaData{ID: id, Title: deckName}] = deck
 		}
 	}

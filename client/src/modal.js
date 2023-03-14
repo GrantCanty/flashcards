@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom'
 import { useNavigate } from 'react-router-dom'
 import './modal.css'
 
-const Modal = ({show, close, onEditClick, onReviewClick, setID}) => {
+const Modal = ({show, close, onEditClick, onReviewClick, setID, increaseReviewedCount}) => {
     const navigate = useNavigate()
 
     if (!show) {
@@ -21,6 +21,7 @@ const Modal = ({show, close, onEditClick, onReviewClick, setID}) => {
                     </div>
                     <div className='options-item review' onClick={() => {
                                                                         navigate(onReviewClick + '/' + setID)
+                                                                        increaseReviewedCount(1)
                                                                         close()
                                                                         }} >
                         <h3>Review Deck</h3>

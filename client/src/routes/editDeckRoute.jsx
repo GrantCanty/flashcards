@@ -57,10 +57,10 @@ const EditDeckRoute = ({deckNames, deckID}) => {
                     <button onClick={newCard} >Add Card</button>
                     <button onClick={saveCards} >Save Cards</button>
                 </div>
-                <ul className="decks">
+                <ul className="flashcards">
                     {deckInfo.map((flaschard, num) => {
                             return (
-                                <li key={num} className="review-flashcard-wrapper"> 
+                                <li key={num} className="edit-flashcard-wrapper"> 
                                     <EditFlashcard flaschard={flaschard} editState={handleDeckInfoChange} />
                                 </li>
                             )

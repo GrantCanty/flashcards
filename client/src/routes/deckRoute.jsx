@@ -6,7 +6,7 @@ import './deck.css'
 import './main.css'
 import DeckList from '../deck/deckList'
 
-const DeckRoute = ({deckNames, setDeckNames, show, toggleShow, deckID, setDeckID, editDeckRoute, reviewDeckRoute}) => {
+const DeckRoute = ({deckNames, setDeckNames, show, toggleShow, deckID, setDeckID, editDeckRoute, reviewDeckRoute, increaseReviewedCount}) => {
     const url = 'http://localhost:8080/api/decks'
     
     
@@ -25,7 +25,7 @@ const DeckRoute = ({deckNames, setDeckNames, show, toggleShow, deckID, setDeckID
                     <button>Add Deck</button>
                 </div>
                 <DeckList deckNameResponse={deckNames} toggleShow={toggleShow} setDeckID={setDeckID} />
-                <Modal show={show} close={toggleShow} onEditClick={editDeckRoute} onReviewClick={reviewDeckRoute} setID={deckID} />
+                <Modal show={show} close={toggleShow} onEditClick={editDeckRoute} onReviewClick={reviewDeckRoute} setID={deckID} increaseReviewedCount={increaseReviewedCount} />
             </div>
             <div id="detail">
                 <Outlet />

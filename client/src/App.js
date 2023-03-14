@@ -13,6 +13,11 @@ function App() {
     const [showModal, toggleShowModal] = useModal()
 	const [deckID, setDeckID] = React.useState(Number)
 	const [deckNameResponse, setDeckNameResponse] = React.useState(new Map())
+	const [reviewedDeckCount, setReviewedDeckCount] = React.useState(Number)
+
+	function increaseReviewedCount() {
+		setReviewedDeckCount(reviewedDeckCount+1)
+	}
 
 	const homeRoute ='/'
 	const deckRoute = '/decks'
@@ -27,11 +32,11 @@ function App() {
 			children: [
 				{
 					path: homeRoute,
-					element: <HomeRoute />
+					element: <HomeRoute reviewedDeckCount={reviewedDeckCount} />
 				},
 				{
 					path: deckRoute,
-					element: <DeckRoute deckNames={deckNameResponse} setDeckNames={setDeckNameResponse} show={showModal} toggleShow={toggleShowModal} deckID={deckID} setDeckID={setDeckID} editDeckRoute={editDeckRoute} reviewDeckRoute={reviewDeckRoute} />
+					element: <DeckRoute deckNames={deckNameResponse} setDeckNames={setDeckNameResponse} show={showModal} toggleShow={toggleShowModal} deckID={deckID} setDeckID={setDeckID} editDeckRoute={editDeckRoute} reviewDeckRoute={reviewDeckRoute} increaseReviewedCount={increaseReviewedCount} />
 				},
 				{
 					path: editDeckRoute + "/:id",

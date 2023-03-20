@@ -41,15 +41,18 @@ func main() {
 
 	r.HandleFunc("/api/decks", routes.GetDeckTitles(&ctx)).Methods("GET")
 	r.HandleFunc("/api/deck/{id}", routes.GetDeck(&ctx)).Methods("GET")
-	r.HandleFunc("/api/deck/{id}", routes.AddDeck(&ctx)).Methods("POST")
+	r.HandleFunc("/api/deck/{id}", routes.EditDeck(&ctx)).Methods("POST")
+	r.HandleFunc("/api/deck/", routes.AddDeck(&ctx)).Methods("POST")
 	r.HandleFunc("/api/deckcount", routes.GetDeckLength(&ctx)).Methods("GET")
 	r.HandleFunc("/api/user", routes.GetProfileData(&ctx)).Methods("GET")
+	r.HandleFunc("/api/occupations", routes.GetOccupations(&ctx)).Methods("GET")
 
 	apiRoute.HandleFunc("/decks", routes.GetDeckTitles(&ctx)).Methods("GET")
 	apiRoute.HandleFunc("/deck/{id}", routes.GetDeck(&ctx)).Methods("GET")
-	apiRoute.HandleFunc("/deck/{id}", routes.AddDeck(&ctx)).Methods("POST")
+	apiRoute.HandleFunc("/deck/{id}", routes.EditDeck(&ctx)).Methods("POST")
 	apiRoute.HandleFunc("/deckcount", routes.GetDeckLength(&ctx)).Methods("GET")
 	apiRoute.HandleFunc("/user", routes.GetProfileData(&ctx)).Methods("GET")
+	apiRoute.HandleFunc("/occupations", routes.GetOccupations(&ctx)).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8080", handler))
 }

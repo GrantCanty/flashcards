@@ -59,13 +59,13 @@ const EditDeckRoute = ({deckNames, deckID}) => {
                 </div>
                 <ul className="flashcards">
                     {deckInfo.map((flaschard, num) => {
-                            return (
-                                <li key={num} className="edit-flashcard-wrapper"> 
-                                    <EditFlashcard flaschard={flaschard} editState={handleDeckInfoChange} />
-                                </li>
-                            )
-                        }
-                    )}
+                                return (
+                                    <li key={num} className="edit-flashcard-wrapper"> 
+                                        <EditFlashcard flaschard={flaschard} editState={handleDeckInfoChange} />
+                                    </li>
+                                )
+                            }
+                        )}
                 </ul>
 
             </div>

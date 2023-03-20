@@ -5,11 +5,18 @@ import './main.css'
 
 function HomeRoute(props) {
   const userDataUrl = 'http://localhost:8080/api/user'
+  const occupationsDataUrl = 'http://localhost:8080/api/occupations'
+
   const [userData, setUserData] = React.useState(new Map())
+  const [occupation, setOccupation] = React.useState([])
 
   React.useEffect(() => {
     axios.get(userDataUrl).then((response) => {
       setUserData(response.data)
+    })
+
+    axios.get(occupationsDataUrl).then((response) => {
+      setOccupation(response.data)
     })
   }, [])
 
@@ -31,13 +38,15 @@ function HomeRoute(props) {
               { userData.Name ? <h2>{ userData.Name }</h2> : null }
               { userData.Occupation ? 
                 <select name='occupation'>
-                  <option value="Student">Student</option>
+                  {occupation.map((occ) => {
+                    return <option value={occ} >{occ}</option>
+                  })}
                 </select> : null}
               { userData.About ? <h5>{ userData.About }</h5> : null }
             </div>
             <div className="deck-data rounded col">
               { deckData.deckCount ? <h5>You have { deckData.deckCount } flashcard decks</h5> : null }
-              { props.hasOwnProperty('reviewedDeckCount') ? <h5>you've reviewed {props.reviewedDeckCount ===1 ? `${props.reviewedDeckCount} deck` : `${props.reviewedDeckCount} decks`} since logging on </h5> : null }
+              { props.hasOwnProperty('reviewedDeckCount') ? <h5>You've reviewed {props.reviewedDeckCount ===1 ? `${props.reviewedDeckCount} deck` : `${props.reviewedDeckCount} decks`} since logging on </h5> : null }
             </div>
           </div>
         </div>

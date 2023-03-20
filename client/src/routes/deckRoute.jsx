@@ -6,7 +6,7 @@ import './deck.css'
 import './main.css'
 import DeckList from '../deck/deckList'
 
-const DeckRoute = ({deckNames, setDeckNames, show, toggleShow, deckID, setDeckID, editDeckRoute, reviewDeckRoute, increaseReviewedCount}) => {
+const DeckRoute = ({deckNames, setDeckNames, showModal, toggleShowModal, showEditOrReview, toggleShowEditOrReview, showAddDeck, toggleShowAddDeck, deckID, setDeckID, editDeckRoute, reviewDeckRoute, increaseReviewedCount}) => {
     const url = 'http://localhost:8080/api/decks'
     
     
@@ -22,10 +22,14 @@ const DeckRoute = ({deckNames, setDeckNames, show, toggleShow, deckID, setDeckID
             <div className='wrapper'>
                 <div className='header'>
                     <h1>Your Flashcard Decks</h1>
-                    <button>Add Deck</button>
+                    <button onClick={ () => { 
+                                                toggleShowModal()
+                                                toggleShowAddDeck()
+                                            }
+                                    }>Add Deck</button>
                 </div>
-                <DeckList deckNameResponse={deckNames} toggleShow={toggleShow} setDeckID={setDeckID} />
-                <Modal show={show} close={toggleShow} onEditClick={editDeckRoute} onReviewClick={reviewDeckRoute} setID={deckID} increaseReviewedCount={increaseReviewedCount} />
+                <DeckList deckNameResponse={deckNames} toggleShowModal={toggleShowModal} setDeckID={setDeckID} toggleShowEditOrReview={toggleShowEditOrReview} />
+                <Modal showModal={showModal} closeModal={toggleShowModal} showEditOrReview={showEditOrReview} toggleShowEditOrReview={toggleShowEditOrReview} showAddDeck={showAddDeck} toggleShowAddDeck={toggleShowAddDeck} onEditClick={editDeckRoute} onReviewClick={reviewDeckRoute} setID={deckID} increaseReviewedCount={increaseReviewedCount} />
             </div>
             <div id="detail">
                 <Outlet />

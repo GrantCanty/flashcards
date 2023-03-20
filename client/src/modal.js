@@ -1,33 +1,27 @@
 import ReactDOM from 'react-dom'
 import { useNavigate } from 'react-router-dom'
+import AddDeck from './addDeck/addDeck'
+import EditOrReview from './editOrReview/editOrReview'
 import './modal.css'
 
-const Modal = ({show, close, onEditClick, onReviewClick, setID, increaseReviewedCount}) => {
+const Modal = ({showModal, closeModal, showEditOrReview, toggleShowEditOrReview, showAddDeck, toggleShowAddDeck, onEditClick, onReviewClick, setID, increaseReviewedCount}) => {
     const navigate = useNavigate()
 
-    if (!show) {
+    if (!showModal) {
         return null
     }
 
     return ReactDOM.createPortal (
         <div className="modal-bg">
             <div className="modal">
-                <div className='options-list'>
-                    <div className='options-item edit' onClick={() => {
-                                                                        navigate(onEditClick + '/' + setID)
-                                                                        close()
-                                                                        }} >
-                        <h3>Edit Deck</h3>
-                    </div>
-                    <div className='options-item review' onClick={() => {
-                                                                        navigate(onReviewClick + '/' + setID)
-                                                                        increaseReviewedCount(1)
-                                                                        close()
-                                                                        }} >
-                        <h3>Review Deck</h3>
-                    </div>
-                </div>
-                <button onClick={close}>Close Modal</button>
+                < EditOrReview onEditClick={onEditClick} onReviewClick={onReviewClick} setID={setID} increaseReviewedCount={increaseReviewedCount} closeModal={closeModal} showEditOrReview={showEditOrReview} toggleShowEditOrReview={toggleShowEditOrReview} navigate={navigate} />
+                < AddDeck showAddDeck={showAddDeck} toggleShowAddDeck={toggleShowAddDeck} />
+                <button onClick={ () => { 
+                                            closeModal()
+                                            if(showEditOrReview === true) {toggleShowEditOrReview()}
+                                            if(showAddDeck === true) {toggleShowAddDeck()}
+                                        }
+                                }>Close Modal</button>
             </div>
         </div>, document.body
     )

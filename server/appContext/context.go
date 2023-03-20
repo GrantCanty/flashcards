@@ -9,6 +9,7 @@ type AppContext struct {
 	User        types.User
 	DeckCounter types.Counter
 	CardCounter types.Counter
+	Occupations []string
 }
 
 func NewAppContext() AppContext {
@@ -26,5 +27,8 @@ func NewAppContext() AppContext {
 	c.User.About = "I enjoy coding, snowboarding, and playing N64 in my free time"
 	c.User.Occupation = "Working"
 	c.User.CreateImage()
+
+	c.Occupations = []string{"Student", "Employed", "Retired"}
+
 	return c
 }

@@ -8,9 +8,14 @@ import DeckRoute from './routes/deckRoute';
 import EditDeckRoute from './routes/editDeckRoute';
 import ReviewDeckRoute from './routes/reviewDeckRoute';
 import useModal from './useModal'
+import useAddDeck from './addDeck/useAddDeck';
+import useEditOrReview from './editOrReview/useEditOrReview';
 
 function App() {
     const [showModal, toggleShowModal] = useModal()
+	const [showAddDeck, toggleShowAddDeck] = useAddDeck()
+	const [showEditOrReview, toggleShowEditOrReview] = useEditOrReview()
+
 	const [deckID, setDeckID] = React.useState(Number)
 	const [deckNameResponse, setDeckNameResponse] = React.useState(new Map())
 	const [reviewedDeckCount, setReviewedDeckCount] = React.useState(Number)
@@ -36,7 +41,7 @@ function App() {
 				},
 				{
 					path: deckRoute,
-					element: <DeckRoute deckNames={deckNameResponse} setDeckNames={setDeckNameResponse} show={showModal} toggleShow={toggleShowModal} deckID={deckID} setDeckID={setDeckID} editDeckRoute={editDeckRoute} reviewDeckRoute={reviewDeckRoute} increaseReviewedCount={increaseReviewedCount} />
+					element: <DeckRoute deckNames={deckNameResponse} setDeckNames={setDeckNameResponse} showModal={showModal} toggleShowModal={toggleShowModal} showEditOrReview={showEditOrReview} toggleShowEditOrReview={toggleShowEditOrReview} showAddDeck={showAddDeck} toggleShowAddDeck={toggleShowAddDeck} deckID={deckID} setDeckID={setDeckID} editDeckRoute={editDeckRoute} reviewDeckRoute={reviewDeckRoute} increaseReviewedCount={increaseReviewedCount} />
 				},
 				{
 					path: editDeckRoute + "/:id",

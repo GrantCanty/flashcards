@@ -16,11 +16,7 @@ const AddDeck =({showAddDeck, toggleShowAddDeck}) => {
     }
 
     function clickSubmit() {
-        const params = {
-            "deckName": deckName
-        }
-        
-        axios.post(url, null, {params})
+        axios.post(url, null, {params: {"deckName": deckName}})
     }
 
     if(!showAddDeck) {

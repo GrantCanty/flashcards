@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"log"
 	"net/http"
 
 	app_context "github.com/GrantCanty/flashcards/appContext"
@@ -10,10 +9,7 @@ import (
 
 func AddDeck(ac *app_context.AppContext) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		log.Println("added deck")
-
 		deckName := r.URL.Query().Get("deckName")
-		log.Println("deckName: ", deckName)
 
 		var deck []types.Card
 		deck = append(deck, types.Card{Topic: "", Description: ""})

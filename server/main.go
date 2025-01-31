@@ -26,6 +26,7 @@ func CorsMiddleware(next http.Handler) http.Handler {
 
 var router *mux.Router
 var ctx app_context.AppContext
+var finalHandler http.Handler
 
 func init() {
 	ctx = app_context.NewAppContext()
@@ -44,9 +45,9 @@ func init() {
 		AllowedOrigins:   []string{"*"},
 		AllowCredentials: true,
 	})
-	router = c.Handler(router).(*mux.Router)
+	finalHandler = c.Handler(router)
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
-	router.ServeHTTP(w, r)
+	finalHandler.ServeHTTP(w, r)
 }

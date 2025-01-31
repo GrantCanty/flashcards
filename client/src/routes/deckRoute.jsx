@@ -15,7 +15,7 @@ const DeckRoute = ({deckNames, setDeckNames, showModal, toggleShowModal, showEdi
         axios.get(url).then((response) => {
             setDeckNames(new Map(Object.entries(response.data)))
         })
-    }, [])
+    }, [setDeckNames])
 
     return (
         <>

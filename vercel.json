@@ -3,7 +3,8 @@
   "builds": [
     {
       "src": "client/package.json",
-      "use": "@vercel/static-build"
+      "use": "@vercel/static-build",
+      "config": { "distDir": "client/build" }
     },
     {
       "src": "server/main.go",
@@ -16,7 +17,8 @@
       "dest": "/server/main.go"
     },
     {
-      "handle": "filesystem"
+      "src": "/static/(.*)",
+      "dest": "/client/build/static/$1"
     },
     {
       "src": "/(.*)",

@@ -17,11 +17,20 @@
       "dest": "/server/main.go"
     },
     {
-      "src": "/static/(.*)",
+      "src": "^/static/(.*)",
       "dest": "/build/static/$1"
     },
     {
-      "handle": "filesystem"
+      "src": "^/(favicon\\.ico|logo192\\.png|logo512\\.png|manifest\\.json|robots\\.txt|asset-manifest\\.json)",
+      "dest": "/build/$1"
+    },
+    {
+      "src": "^/decks(/.*)?$",
+      "dest": "/build/index.html"
+    },
+    {
+      "src": "^/deck(/.*)?$",
+      "dest": "/build/index.html"
     },
     {
       "src": "/(.*)",

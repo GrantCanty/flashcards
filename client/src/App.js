@@ -53,14 +53,6 @@ function App() {
 				},
 			],
 		},
-		/*{
-			path: editDeckRoute,
-			element: <Sidebar homeRoute={homeRoute} deckRoute={deckRoute} />,
-		},
-		{
-			path: reviewDeckRoute,
-			element: <Sidebar homeRoute={homeRoute} deckRoute={deckRoute} />,
-		},*/
 	],
 	)
 

@@ -25,14 +25,6 @@
       "dest": "/build/$1"
     },
     {
-      "src": "^/decks(/.*)?$",
-      "dest": "/build/index.html"
-    },
-    {
-      "src": "^/deck(/.*)?$",
-      "dest": "/build/index.html"
-    },
-    {
       "src": "/(.*)",
       "dest": "/build/index.html"
     }

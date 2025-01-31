@@ -12,7 +12,7 @@ import (
 	"github.com/rs/cors"
 )
 
-func corsMiddleware(next http.Handler) http.Handler {
+func CorsMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("content-type", "application/json;charset=UTF-8")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -30,7 +30,7 @@ func corsMiddleware(next http.Handler) http.Handler {
 func main() {
 	ctx := app_context.NewAppContext()
 	r := mux.NewRouter()
-	r.Use(corsMiddleware)
+	r.Use(CorsMiddleware)
 	apiRoute := r.Host("api.localhost").Subrouter()
 
 	c := cors.New(cors.Options{

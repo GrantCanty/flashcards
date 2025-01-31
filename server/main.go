@@ -1,13 +1,10 @@
-package main
+package handler // Change package from main to handler
 
 import (
-	"log"
 	"net/http"
 
 	app_context "github.com/GrantCanty/flashcards/appContext"
 	"github.com/GrantCanty/flashcards/routes"
-
-	//"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 )
@@ -27,32 +24,29 @@ func CorsMiddleware(next http.Handler) http.Handler {
 	})
 }
 
-func main() {
-	ctx := app_context.NewAppContext()
-	r := mux.NewRouter()
-	r.Use(CorsMiddleware)
-	apiRoute := r.Host("api.localhost").Subrouter()
+var router *mux.Router
+var ctx app_context.AppContext
+
+func init() {
+	ctx = app_context.NewAppContext()
+	router = mux.NewRouter()
+	router.Use(CorsMiddleware)
+
+	router.HandleFunc("/api/decks", routes.GetDeckTitles(&ctx)).Methods("GET")
+	router.HandleFunc("/api/deck/{id}", routes.GetDeck(&ctx)).Methods("GET")
+	router.HandleFunc("/api/deck/{id}", routes.EditDeck(&ctx)).Methods("POST")
+	router.HandleFunc("/api/deck/", routes.AddDeck(&ctx)).Methods("POST")
+	router.HandleFunc("/api/deckcount", routes.GetDeckLength(&ctx)).Methods("GET")
+	router.HandleFunc("/api/user", routes.GetProfileData(&ctx)).Methods("GET")
+	router.HandleFunc("/api/occupations", routes.GetOccupations(&ctx)).Methods("GET")
 
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"http://localhost:3000"},
+		AllowedOrigins:   []string{"*"},
 		AllowCredentials: true,
 	})
-	handler := c.Handler(r)
+	router = c.Handler(router).(*mux.Router)
+}
 
-	r.HandleFunc("/api/decks", routes.GetDeckTitles(&ctx)).Methods("GET")
-	r.HandleFunc("/api/deck/{id}", routes.GetDeck(&ctx)).Methods("GET")
-	r.HandleFunc("/api/deck/{id}", routes.EditDeck(&ctx)).Methods("POST")
-	r.HandleFunc("/api/deck/", routes.AddDeck(&ctx)).Methods("POST")
-	r.HandleFunc("/api/deckcount", routes.GetDeckLength(&ctx)).Methods("GET")
-	r.HandleFunc("/api/user", routes.GetProfileData(&ctx)).Methods("GET")
-	r.HandleFunc("/api/occupations", routes.GetOccupations(&ctx)).Methods("GET")
-
-	apiRoute.HandleFunc("/decks", routes.GetDeckTitles(&ctx)).Methods("GET")
-	apiRoute.HandleFunc("/deck/{id}", routes.GetDeck(&ctx)).Methods("GET")
-	apiRoute.HandleFunc("/deck/{id}", routes.EditDeck(&ctx)).Methods("POST")
-	apiRoute.HandleFunc("/deckcount", routes.GetDeckLength(&ctx)).Methods("GET")
-	apiRoute.HandleFunc("/user", routes.GetProfileData(&ctx)).Methods("GET")
-	apiRoute.HandleFunc("/occupations", routes.GetOccupations(&ctx)).Methods("GET")
-
-	log.Fatal(http.ListenAndServe(":8080", handler))
+func Handler(w http.ResponseWriter, r *http.Request) {
+	router.ServeHTTP(w, r)
 }

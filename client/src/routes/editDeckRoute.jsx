@@ -24,7 +24,7 @@ const EditDeckRoute = ({deckNames, deckID}) => {
 
         // create brand new array. loop through deckInfo and add elements to new array
         let tmpArr = []
-        deckInfo.map((card) => {
+        deckInfo.forEach((card) => {
             tmpArr.push(card)
         })
         tmpArr.push(tmpDeck)
